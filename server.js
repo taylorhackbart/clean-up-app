@@ -1,22 +1,20 @@
 const express = require("express");
 const morgan = require("morgan")
-const mongoose = require("mongoose")
 const app = express()
+const sequelize = require("./config/connection")
 const PORT = process.env.PORT || 3001;
 require("dotenv").config()
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: false}))
-app.use(bodyParser.json())
+const cors = require("cors")
+
+app.use(express.urlencoded({ extended: false}))
+app.use(express.json())
 
 app.use(cors())
 app.use(morgan("dev"))
 
-const options = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: false
-}
-app.listen(PORT, function() {
-  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
-});
+const routes = require("./routes")
+app.use(routes)
+
+sequelize.sync({force: false}).then(() => {
+  app.listen(PORT, () => console.log("Now listening on PORT " + PORT))
+})
