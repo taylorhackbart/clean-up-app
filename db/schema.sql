@@ -1,5 +1,5 @@
-DROP DATABASE IF EXISTS clean-eats;
-CREATE DATABASE clean-eats;
+DROP DATABASE IF EXISTS clean_eats;
+CREATE DATABASE clean_eats;
 -- USE clean-eats;
 
 -- CREATE TABLE users (

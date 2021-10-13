@@ -9,12 +9,15 @@ const cors = require("cors")
 app.use(express.urlencoded({ extended: false}))
 app.use(express.json())
 
+app.use(express.static("public")); 
+
 app.use(cors())
 app.use(morgan("dev"))
 
+const db = require("./models")
 const routes = require("./routes")
 app.use(routes)
 
-sequelize.sync({force: false}).then(() => {
+db.sequelize.sync({force: true}).then(() => {
   app.listen(PORT, () => console.log("Now listening on PORT " + PORT))
 })
