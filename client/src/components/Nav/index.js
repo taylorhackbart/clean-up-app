@@ -1,5 +1,6 @@
 import React from "react";
 import { GiCardPickup } from "react-icons/gi";
+import AuthOptions from "../../auth/AuthOptions"
 // Adding in event listener to toggle nav-burger
 document.addEventListener("DOMContentLoaded", () => {
   const navbarBurgers = Array.prototype.slice.call(
@@ -48,6 +49,11 @@ function Nav() {
               Search
             </a>
           </div>
+          <div className="navbar-end">
+      <div className="navbar-item">
+        <AuthOptions/>
+      </div>
+    </div>
         </div>
       </nav>
     </>
