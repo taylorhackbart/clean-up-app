@@ -22,9 +22,10 @@ function App() {
         token = "";
         console.log("no token has been found");
       }
-      const tokenRes = await API.postToken(null, {
+      const tokenRes = await API.postToken( null, {
         headers: { "x-auth-token": token },
       });
+      console.log(tokenRes);
       if (tokenRes.data) {
         const userRes = await API.getUsers({
           headers: { "x-auth-token": token },

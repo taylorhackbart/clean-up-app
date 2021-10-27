@@ -14,7 +14,7 @@ export default function Register() {
   const [displayName, setDisplayName] = useState();
   const [error, setError] = useState();
   const history = useHistory();
-  const [user, setUser] = useState({});
+  const [setUser] = useState({});
 
   const submit = async (e) => {
     e.preventDefault();
@@ -29,9 +29,11 @@ export default function Register() {
       };
       await API.createUser(newUser).then((res) => {
         const id = res.data._id;
+        console.log(res)
         setUser(res.data);
         const loadUserInfo = async () => {
           await API.getUserById(id).then((res) => {
+            console.log(res)
             setUser(res.data);
           });
         };

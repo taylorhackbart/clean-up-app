@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { GiCardPickup } from "react-icons/gi";
 import AuthOptions from "../../auth/AuthOptions"

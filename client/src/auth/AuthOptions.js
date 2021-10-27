@@ -9,12 +9,13 @@ export default function AuthOptions() {
 
   const register = () => history.push("/register");
   const login = () => history.push("/login");
-  const home = () => history.push("/portal");
+  const home = () => history.push("/");
   const logout = () => {
     setUserData({
       token: undefined,
       user: undefined,
     });
+    
     localStorage.setItem("auth-token", "");
     history.push("/");
   };

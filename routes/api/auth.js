@@ -92,7 +92,7 @@ router.post("/login", async (req, res) => {
 
 router.delete("/delete", auth, async (req, res) => {
   try {
-    const deletedUser = await User.findByIdAndDelete(req.user);
+    const deletedUser = await User.findByPkAndDelete(req.user);
     res.json(deletedUser);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -102,12 +102,14 @@ router.delete("/delete", auth, async (req, res) => {
 router.post("/tokenIsValid", async (req, res) => {
   try {
     const token = req.header("x-auth-token");
+
     if (!token) return res.json(false);
 
     const verified = jwt.verify(token, process.env.JWT_SECRET);
     if (!verified) return res.json(false);
 
-    const user = await User.findById(verified.id);
+    const id = verified.id
+    const user = await User.findByPk(id);
     if (!user) return res.json(false);
 
     return res.json(true);
@@ -123,13 +125,13 @@ router.get("/", auth, async (req, res) => {
   const verified = jwt.verify(token, process.env.JWT_SECRET);
   if (!verified) return res.json(false);
 
-  const user = await User.findById(verified.id);
+  const user = await User.findByPk(verified.id);
   if (!user) return res.json(false);
 
   return res.json({
     token,
     displayName: user.displayName,
-    id: user._id,
+    id: user.id,
     username: user.username
   });
 });
@@ -142,7 +144,7 @@ router.get("/register", async (req, res) => {
 
 //Grab users by certain ID
 router.get("/register/:id", async (req, res) => {
-  User.findById(req.params.id)
+  User.findByPk(req.params.id)
     .then((dbModel) => res.json(dbModel))
     .catch((err) => res.status(422).json(err));
 });
